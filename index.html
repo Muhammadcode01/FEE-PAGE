@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stunning & Transparent Fees - VitalSwap</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <nav class="main-nav">
+                <a href="#" class="logo">
+                    <img src="./Vitalswap.png" alt="VitalSwap Logo">
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#">How It Works</a></li>
+                    <li><a href="#">Our Rates</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+                <a href="#" class="btn btn-primary">Download App</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero animate-fade-in">
+            <div class="container">
+                <h1>Transparent Pricing, No Surprises.</h1>
+                <p class="subtitle">Understand exactly what you pay. Use our tools below to calculate fees and see live rates before you swap.</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container content-grid">
+
+                <div class="calculator-card card animate-fade-in">
+                    <h2>Calculate Your Swap</h2>
+                    <div class="calculator-body">
+                        <div class="input-group">
+                            <label for="send-amount">You Send</label>
+                            <div class="input-wrapper">
+                                <input type="text" id="send-amount" value="1,000">
+                                <select id="send-currency">
+                                    <option value="USD">USD</option>
+                                    <option value="EUR">EUR</option>
+                                    <option value="GBP">GBP</option>
+                                    <option value="NGN">NGN</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="calculator-controls">
+                            <div class="breakdown">
+                                <div class="breakdown-row">
+                                    <span class="fee-label">VitalSwap Fee</span>
+                                    <strong id="fee-display">$2.50 (0.25%)</strong>
+                                </div>
+                                <div class="breakdown-row">
+                                    <span class="rate-label">Live Exchange Rate</span>
+                                    <strong id="rate-display">1 USD = 0.9200 EUR</strong>
+                                </div>
+                            </div>
+                            <button id="swap-currencies-btn" class="swap-btn" title="Swap currencies">
+                                &#x21C6;
+                            </button>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="receive-amount">They Receive</label>
+                            <div class="input-wrapper">
+                                <input type="text" id="receive-amount" readonly>
+                                <select id="receive-currency">
+                                    <option value="EUR">EUR</option>
+                                    <option value="USD">USD</option>
+                                    <option value="GBP">GBP</option>
+                                    <option value="NGN">NGN</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-full">Start a Swap</button>
+                    <span class="swaptag">SwapTag: LogicLeague</span>
+                </div>
+
+                <div class="fee-structure-card card animate-fade-in" style="animation-delay: 200ms;">
+                    <h2>Our Simple Fee Structure</h2>
+                    <div class="tabs" role="tablist">
+                        <button class="tab-link active" role="tab" aria-selected="true" aria-controls="standard-tab">Standard</button>
+                        <button class="tab-link" role="tab" aria-selected="false" aria-controls="premium-tab">Premium</button>
+                        <button class="tab-link" role="tab" aria-selected="false" aria-controls="business-tab">Business</button>
+                    </div>
+                    <div id="standard-tab" class="tab-content active" role="tabpanel">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Product/Action</th>
+                                    <th>Fee</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Currency Swap</td>
+                                    <td>0.25% - 0.5%</td>
+                                </tr>
+                                <tr>
+                                    <td>Crypto Asset Swap</td>
+                                    <td>0.5%</td>
+                                </tr>
+                                <tr>
+                                    <td>Wire Transfer Out</td>
+                                    <td>$15 Flat</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="premium-tab" class="tab-content" role="tabpanel">
+                       <table>
+                            <thead>
+                                <tr>
+                                    <th>Product/Action</th>
+                                    <th>Fee</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Currency Swap</td>
+                                    <td>0.15% - 0.3%</td>
+                                </tr>
+                                <tr>
+                                    <td>Crypto Asset Swap</td>
+                                    <td>0.3%</td>
+                                </tr>
+                                <tr>
+                                    <td>Wire Transfer Out</td>
+                                    <td>$5 Flat</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="business-tab" class="tab-content" role="tabpanel">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Product/Action</th>
+                                    <th>Fee</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Currency Swap</td>
+                                    <td>Volume-based</td>
+                                </tr>
+                                <tr>
+                                    <td>API Access</td>
+                                    <td>Custom</td>
+                                </tr>
+                                <tr>
+                                    <td>Batch Payments</td>
+                                    <td>$0.50 per payment</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="fx-rate-section">
+            <div class="container">
+                <div class="chart-card card">
+                    <h2>Live FX Rates & Trends</h2>
+                    <p class="chart-subtitle">USD/EUR Exchange Rate</p>
+                    <canvas id="fxRateChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <h2>Ready to Swap with Confidence?</h2>
+                <p>Join thousands of users who trust VitalSwap for fast, secure, and transparent transactions.</p>
+                <a href="#" class="btn btn-primary">Create Your Free Account</a>
+                <span class="swaptag">SwapTag: LogicLeague</span>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div class="footer-about">
+                <a href="#" class="logo-footer">
+                    <img src="./Vitalswap.png" alt="VitalSwap Logo">
+                </a>
+                <p>VitalSwap is a global financial technology platform that offers a convenient and secure way to transfer, and make payments locally and internationally.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Get Connected</h3>
+                <p>contact@vitalswap.com</p>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2025 VitalSwap. All rights reserved.</p>
+            <div>
+                <a href="#">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

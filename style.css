@@ -1,0 +1,421 @@
+/* --- Global Styles & Brand Variables --- */
+:root {
+    --primary-yellow: #FFC107;
+    --primary-dark-blue: #0A2540;
+    --text-dark: #1D2D35;
+    --text-light: #5B6A71;
+    --background-white: #FFFFFF;
+    --background-light-gray: #F8F9FA;
+    --border-color: #EAECEF;
+    --font-family: 'Inter', sans-serif;
+    --border-radius: 12px;
+    --border-radius-full: 50px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--background-white);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+/* --- Header & Navigation --- */
+.main-header {
+    background: var(--background-white);
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 32px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--primary-yellow);
+}
+
+/* --- Brand-Aligned Buttons --- */
+.btn {
+    padding: 14px 28px;
+    border: 2px solid transparent;
+    border-radius: var(--border-radius-full);
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background-color: var(--primary-yellow);
+    color: var(--text-dark);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn-full {
+    width: 100%;
+    text-align: center;
+}
+
+/* --- Hero Section --- */
+.hero {
+    text-align: center;
+    padding: 90px 0;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+.hero .subtitle {
+    font-size: 1.25rem;
+    color: var(--text-light);
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+/* --- Main Content & Cards --- */
+.content-section {
+    padding: 40px 0 80px 0;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+}
+
+.card {
+    background: var(--background-white);
+    padding: 32px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+    border: 1px solid var(--border-color);
+}
+
+.card h2 {
+    font-size: 1.75rem;
+    margin-bottom: 24px;
+    color: var(--text-dark);
+}
+
+/* --- Calculator --- */
+.input-group {
+    margin-bottom: 20px;
+}
+.input-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: var(--text-light);
+}
+
+.input-wrapper {
+    display: flex;
+}
+
+.input-wrapper input, .input-wrapper select {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid var(--border-color);
+    font-size: 1.1rem;
+    background-color: var(--background-light-gray);
+    border-radius: 8px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-wrapper input:focus, .input-wrapper select:focus {
+    outline: none;
+    border-color: var(--primary-yellow);
+    box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.3);
+}
+
+.calculator-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    margin: 10px 0;
+}
+
+.breakdown {
+    flex-grow: 1;
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.breakdown-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.breakdown-row span {
+    color: var(--text-light);
+}
+
+.swap-btn {
+    background: var(--background-light-gray);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-light);
+    transition: all 0.3s ease;
+    margin-left: 16px;
+}
+
+.swap-btn:hover {
+    background: var(--primary-yellow);
+    color: var(--text-dark);
+    transform: rotate(180deg);
+}
+
+.value-updated {
+    background-color: rgba(255, 193, 7, 0.2);
+    transition: background-color 0.5s ease;
+}
+
+.swaptag {
+    display: block;
+    text-align: center;
+    margin-top: 16px;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+/* --- Fee Structure Table & Tabs --- */
+.tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 20px;
+}
+
+.tab-link {
+    padding: 10px 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-light);
+    border-bottom: 2px solid transparent;
+}
+
+.tab-link.active {
+    color: var(--text-dark);
+    border-bottom-color: var(--primary-yellow);
+}
+
+.tab-content {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease-out;
+}
+
+.tab-content.active {
+    display: block;
+    opacity: 1;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: left;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+/* --- FX Rate Chart Section --- */
+.fx-rate-section {
+    background-color: var(--background-light-gray);
+    padding: 80px 0;
+}
+.chart-subtitle {
+    color: var(--text-light);
+    margin-bottom: 24px;
+}
+
+.chart-card {
+    height: 450px; 
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-card canvas {
+    flex-grow: 1;
+    min-height: 0;
+}
+
+/* --- Standalone CTA Section --- */
+.cta-section {
+    background-color: var(--background-light-gray);
+    padding: 80px 0;
+    text-align: center;
+}
+
+.cta-section h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+.cta-section p {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    margin: 0 auto 2rem auto;
+    max-width: 550px;
+}
+
+/* --- Brand-Aligned Footer --- */
+.main-footer {
+    background-color: var(--primary-dark-blue);
+    color: var(--background-white);
+    padding-top: 80px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 48px;
+    padding-bottom: 60px;
+}
+
+.footer-about p {
+    color: rgba(255,255,255,0.8);
+    max-width: 350px;
+    margin-top: 16px;
+}
+
+.footer-links h3 {
+    margin-bottom: 16px;
+}
+
+.footer-links p {
+    color: rgba(255,255,255,0.8);
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 0;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    font-size: 0.9rem;
+}
+.footer-bottom a {
+    color: var(--background-white);
+    text-decoration: none;
+    margin-left: 24px;
+}
+.footer-bottom a:hover {
+    text-decoration: underline;
+}
+
+/* --- Logo Styling --- */
+.logo, .logo-footer {
+    font-size: 0;
+    display: inline-flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 32px;
+    width: auto;
+}
+
+.logo-footer img {
+    height: 36px;
+    width: auto;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 992px) {
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    .cta-section h2 {
+        font-size: 2rem;
+    }
+    .footer-bottom {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
