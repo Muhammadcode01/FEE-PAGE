@@ -9,8 +9,85 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .real-time-badge {
+            background: #4CAF50;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 0.7em;
+            font-weight: bold;
+        }
+        .fallback-badge {
+            background: #FF9800;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 0.7em;
+            font-weight: bold;
+        }
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .status-badge.active {
+            background: #4CAF50;
+            color: white;
+        }
+        .status-badge.inactive {
+            background: #f44336;
+            color: white;
+        }
+        .value-updated {
+            animation: valueUpdate 0.5s ease-in-out;
+        }
+        .fee-loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-style: italic;
+        }
+        #loading-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #FFC107;
+            color: #000;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            z-index: 1000;
+            display: none;
+        }
+        #error-display {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #f44336;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            z-index: 1000;
+            display: none;
+            max-width: 80%;
+            text-align: center;
+        }
+        @keyframes valueUpdate {
+            0% { background-color: transparent; }
+            50% { background-color: rgba(255, 193, 7, 0.3); }
+            100% { background-color: transparent; }
+        }
+    </style>
 </head>
 <body>
+
+    <!-- Loading and Error Indicators -->
+    <div id="loading-indicator">🔄 Loading real-time data...</div>
+    <div id="error-display"></div>
 
     <header class="main-header">
         <div class="container">
@@ -46,7 +123,7 @@
                         <div class="input-group">
                             <label for="send-amount">You Send</label>
                             <div class="input-wrapper">
-                                <input type="text" id="send-amount" value="1,000">
+                                <input type="text" id="send-amount" value="1000" placeholder="Enter amount">
                                 <select id="send-currency">
                                     <option value="USD">USD</option>
                                     <option value="EUR">EUR</option>
@@ -60,11 +137,11 @@
                             <div class="breakdown">
                                 <div class="breakdown-row">
                                     <span class="fee-label">VitalSwap Fee</span>
-                                    <strong id="fee-display">$2.50 (0.25%)</strong>
+                                    <strong id="fee-display">Calculating...</strong>
                                 </div>
                                 <div class="breakdown-row">
                                     <span class="rate-label">Live Exchange Rate</span>
-                                    <strong id="rate-display">1 USD = 0.9200 EUR</strong>
+                                    <strong id="rate-display">Loading real-time data...</strong>
                                 </div>
                             </div>
                             <button id="swap-currencies-btn" class="swap-btn" title="Swap currencies">
@@ -75,12 +152,12 @@
                         <div class="input-group">
                             <label for="receive-amount">They Receive</label>
                             <div class="input-wrapper">
-                                <input type="text" id="receive-amount" readonly>
+                                <input type="text" id="receive-amount" readonly placeholder="Calculated amount">
                                 <select id="receive-currency">
+                                    <option value="NGN">NGN</option>
                                     <option value="EUR">EUR</option>
                                     <option value="USD">USD</option>
-                                    <option value="GBP">GBP</option>
-                                    <option value="NGN">NGN</option>
+                                    <option value="GPB">GBP</option>
                                 </select>
                             </div>
                         </div>
@@ -96,75 +173,65 @@
                         <button class="tab-link" role="tab" aria-selected="false" aria-controls="premium-tab">Premium</button>
                         <button class="tab-link" role="tab" aria-selected="false" aria-controls="business-tab">Business</button>
                     </div>
+                    
+                    <!-- Standard Tab -->
                     <div id="standard-tab" class="tab-content active" role="tabpanel">
-                        <table>
+                        <div class="fee-loading">
+                            Loading real-time fee data...
+                        </div>
+                        <table style="display: none;">
                             <thead>
                                 <tr>
-                                    <th>Product/Action</th>
+                                    <th>Service</th>
                                     <th>Fee</th>
+                                    <th>Description</th>
+                                    
+                                    <th>Status</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Currency Swap</td>
-                                    <td>0.25% - 0.5%</td>
-                                </tr>
-                                <tr>
-                                    <td>Crypto Asset Swap</td>
-                                    <td>0.5%</td>
-                                </tr>
-                                <tr>
-                                    <td>Wire Transfer Out</td>
-                                    <td>$15 Flat</td>
-                                </tr>
+                            <tbody id="standard-fees-body">
+                                <!-- Will be populated by JavaScript -->
                             </tbody>
                         </table>
                     </div>
+                    
+                    <!-- Premium Tab -->
                     <div id="premium-tab" class="tab-content" role="tabpanel">
-                       <table>
+                        <div class="fee-loading">
+                            Loading real-time fee data...
+                        </div>
+                        <table style="display: none;">
                             <thead>
                                 <tr>
-                                    <th>Product/Action</th>
+                                    <th>Service</th>
                                     <th>Fee</th>
+                                    <th>Description</th>
+                                    
+                                    <th>Status</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Currency Swap</td>
-                                    <td>0.15% - 0.3%</td>
-                                </tr>
-                                <tr>
-                                    <td>Crypto Asset Swap</td>
-                                    <td>0.3%</td>
-                                </tr>
-                                <tr>
-                                    <td>Wire Transfer Out</td>
-                                    <td>$5 Flat</td>
-                                </tr>
+                            <tbody id="premium-fees-body">
+                                <!-- Will be populated by JavaScript -->
                             </tbody>
                         </table>
                     </div>
+                    
+                    <!-- Business Tab -->
                     <div id="business-tab" class="tab-content" role="tabpanel">
-                        <table>
+                        <div class="fee-loading">
+                            Loading real-time fee data...
+                        </div>
+                        <table style="display: none;">
                             <thead>
                                 <tr>
-                                    <th>Product/Action</th>
+                                    <th>Service</th>
                                     <th>Fee</th>
+                                    <th>Description</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Currency Swap</td>
-                                    <td>Volume-based</td>
-                                </tr>
-                                <tr>
-                                    <td>API Access</td>
-                                    <td>Custom</td>
-                                </tr>
-                                <tr>
-                                    <td>Batch Payments</td>
-                                    <td>$0.50 per payment</td>
-                                </tr>
+                            <tbody id="business-fees-body">
+                                <!-- Will be populated by JavaScript -->
                             </tbody>
                         </table>
                     </div>
@@ -176,8 +243,8 @@
             <div class="container">
                 <div class="chart-card card">
                     <h2>Live FX Rates & Trends</h2>
-                    <p class="chart-subtitle">USD/EUR Exchange Rate</p>
-                    <canvas id="fxRateChart"></canvas>
+                    <p class="chart-subtitle">USD/NGN Exchange Rate</p>
+                    <canvas id="fxRateChart" height="300"></canvas>
                 </div>
             </div>
         </section>
